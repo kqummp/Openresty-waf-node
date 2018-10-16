@@ -1,8 +1,10 @@
 #!/bin/sh
 
-if [ ! -z "$BACKEND_CONTAINER" ]; then
-    sed -i "80d" /usr/local/openresty/nginx/conf/nginx.conf;
-    sed -i "79a\ \t\t    http://$BACKEND_CONTAINER:8080;" /usr/local/openresty/nginx/conf/nginx.conf;
+if [ ! -z "$SERVER_NAME" ]; then
+    sed -i "56d" /usr/local/openresty/nginx/conf/nginx.conf;
+    sed -i "55a\ \t    server_name $SERVER_NAME;" /usr/local/openresty/nginx/conf/nginx.conf;
+    sed -i "72d" /usr/local/openresty/nginx/conf/nginx.conf;
+    sed -i "71a\ \t    server_name $SERVER_NAME;" /usr/local/openresty/nginx/conf/nginx.conf;
 fi
 
 exec /usr/local/openresty/nginx/sbin/nginx -g "daemon off;"
